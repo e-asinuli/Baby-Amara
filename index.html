@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Little Amara | 1 Month Magic</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --primary: #ff85a2;
+            --secondary: #fbb1bd;
+            --accent: #7ec8e3;
+            --bg: #fff0f3;
+            --glass: rgba(255, 255, 255, 0.5);
+            --gold: #d4af37;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at center, #ffffff 0%, #ffcbd1 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #444;
+        }
+        /* 1. LOGIN GLASSMORPHISM */
+        
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 192, 203, 0.85);
+            backdrop-filter: blur(25px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.8s ease;
+        }
+        
+        .login-box {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 60px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        /* 2. PHOTO GALLERY SECTION */
+        
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        .photo-frame {
+            background: white;
+            padding: 12px 12px 35px 12px;
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: rotate(var(--r));
+            transition: 0.4s ease;
+            width: 220px;
+        }
+        
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.1);
+            z-index: 5;
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        /* 3. MAIN LAYOUT & PADDING */
+        
+        .main-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 40px;
+            z-index: 10;
+            position: relative;
+        }
+        
+        #emoji-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .emoji {
+            position: fixed;
+            font-size: 2.5rem;
+            animation: flyUp 4s linear forwards;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .glow-text {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 800;
+            color: #5d5d5d;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .glow-text span {
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(255, 133, 162, 0.5);
+        }
+        
+        .countdown-container {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(255, 133, 162, 0.15);
+        }
+        
+        #countdown {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .time-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            min-width: 90px;
+        }
+        
+        .time-box span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        
+        .flex-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 35px;
+            padding: 45px;
+            border: 2px solid #fff;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+            flex: 1 1 400px;
+            text-align: center;
+        }
+        /* 4. MEDIA ELEMENTS (VIDEO/AUDIO) */
+        
+        .media-element {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+            background: #000;
+        }
+        
+        .btn {
+            padding: 18px 45px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
+            transition: 0.4s;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 133, 162, 0.6);
+        }
+        /* 5. MODAL STYLES */
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 90%;
+            max-width: 550px;
+            padding: 50px;
+            border-radius: 40px;
+            position: relative;
+            text-align: center;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 20px;
+        }
+        
+        @keyframes flyUp {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2 style="color: #ff85a2; margin-bottom: 10px;">For Little Amara</h2>
+            <p style="margin-bottom: 20px;">Identity Verification Required</p>
+            <button class="btn" style="font-size: 3rem; padding: 20px; background: white; border: 2px solid #ff85a2;" onclick="unlockSite()">👆</button>
+            <p style="font-size: 0.8rem; margin-top: 15px; color: #777;">Click to verify biometrics</p>
+        </div>
+    </div>
+
+    <audio id="noteMusic" class="media-element" style="display:none;">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="emoji-layer"></div>
+
+    <div class="main-wrapper">
+        <header>
+            <h1 class="glow-text">Happy 1 Month, <span>Amara!</span></h1>
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--gold);">Congratulations, Mama!</h2>
+            <p style="margin-top: 15px;">Celebrating 30 days of pure joy and tiny toes.You are doing an amazing job, Sister. Amara is so lucky to have you.</p>
+            <p>A beautiful baby girl has arrived to fill your heart with endless love.</p>
+        </header>
+
+        <div style="margin-top: 40px; margin-bottom: 40px;">
+            <h2 class="poem-title">A Mother’s New Dawn</h2>
+            <p class="poem-body">
+                The world held its breath in the quiet of night,<br> To welcome a soul made of wonder and light.<br> With a sigh and a prayer, and a dream coming true,<br> She’s finally here—and she looks just like you.<br><br> Ten tiny fingers to hold
+                in your hand,<br> The smallest new heartbeat in all of the land.<br> A dusting of pink and a soft, gentle curl,<br> The miracle magic of your baby girl.<br><br> Through the long, sleepy midnights and sun-drenched days,<br> You’ll learn
+                all her secrets, her soft, cooing ways.<br> You’re the moon to her tide, the earth to her flower,<br> The strength in her spirit, the love in her power.<br><br> So breathe in this moment, the scent of her hair,<br> The weight of the promise
+                you’ve promised to bear.<br> Congratulations, Mama, the journey’s begun—<br> Of a love that outshines both the moon and the sun.
+            </p>
+        </div>
+
+        <div class="photo-gallery">
+            <div class="photo-frame" style="--r: -3deg;"><img src="baby1.jpg" alt="Amara Photo 1"></div>
+            <div class="photo-frame" style="--r: 2deg;"><img src="baby2.jpg" alt="Amara Photo 2"></div>
+            <div class="photo-frame" style="--r: -1deg;"><img src="baby3.jpg" alt="Amara Photo 3"></div>
+            <div class="photo-frame" style="--r: 4deg;"><img src="babyphoto1.jpg" alt="Amara Photo 4"></div>
+        </div>
+
+        <div class="countdown-container">
+            <h3 style="color: #ff85a2; margin-bottom: 20px; font-size: 1.5rem;">Road to 2 Months 👣</h3>
+            <div id="countdown">
+                <div class="time-box"><span id="days">00</span>
+                    <p>Days</p>
+                </div>
+                <div class="time-box"><span id="hours">00</span>
+                    <p>Hours</p>
+                </div>
+                <div class="time-box"><span id="minutes">00</span>
+                    <p>Min</p>
+                </div>
+                <div class="time-box"><span id="seconds">00</span>
+                    <p>Sec</p>
+                </div>
+            </div>
+        </div>
+
+        <main class="flex-content">
+            <div class="card">
+                <h3 style="margin-bottom: 20px;">Special Moments</h3>
+
+                <video class="media-element" controls onplay="stopAllOthers(this)">
+                    <source src="video.mp4" type="video/mp4">
+                </video>
+
+                <button class="btn" id="startBtn" onclick="triggerMagic()">Start the Magic ✨</button>
+
+                <audio class="media-element" controls onplay="stopAllOthers(this)">
+                    <source src="IIFERA.mp3">
+                </audio>
+
+                <video class="media-element" controls onplay="stopAllOthers(this)">
+                    <source src="amara.mp4" type="video/mp4">
+                </video>
+                <audio class="media-element" controls onplay="stopAllOthers(this)">
+                    <source src="Abochi.mp3">
+                </audio>
+            </div>
+
+            <div class="card text-card">
+                <h3>Dearest Sister,</h3>
+                <p style="margin: 25px 0; line-height: 1.8;">
+                    One month ago, Amara arrived and changed our world forever. You are a natural mother, and we are so proud of you!
+                </p>
+
+                <button class="btn" id="openBook" onclick="toggleNote()">💌 Read My Note</button>
+
+                <video class="media-element" controls onplay="stopAllOthers(this)" style="margin-top:40px;">
+                    <source src="babyvideo.mp4" type="video/mp4">
+                </video>
+                <p style="margin: 25px 0; line-height: 1.8;">
+                    Mchiiiziii!👶
+                </p>
+                <p style="margin: 25px 0; line-height: 1.8;">
+                    Here is a lullaby surprise for Amara. Make her listen to it🧸.
+                </p>
+                <audio class="media-element" controls onplay="stopAllOthers(this)">
+                    <source src="baby shark.mp3">
+                </audio>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="guestbookModal" class="modal-overlay">
+        <div class="glass-card">
+            <span style="position:absolute; top:20px; right:25px; cursor:pointer; font-size:2rem;" onclick="toggleNote()">&times;</span>
+            <h2 style="color:var(--primary); font-family: 'Dancing Script'; font-size: 2.5rem;">A Note for You</h2>
+            <div style="margin-top:30px; text-align: left; line-height: 2; font-size: 1.1rem;">
+                <p>To my amazing sister,</p>
+                <p>Happy one-month anniversary of motherhood! May your days be filled with Amara's sweet scents and her tiny smiles. Remember to take care of yourself too.</p>
+                <div class="signature">Love you always, <br> BRO✨</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. GLOBAL STOP LOGIC (One sound at a time)
+        function stopAllOthers(currentElement) {
+            const allMedia = document.querySelectorAll('video, audio');
+            allMedia.forEach(media => {
+                if (media !== currentElement) {
+                    media.pause();
+                }
+            });
+        }
+
+        // 2. UNLOCK SITE
+        function unlockSite() {
+            const overlay = document.getElementById('login-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 800);
+        }
+
+        // 3. MAGIC BUTTON (Emoji Burst)
+        function triggerMagic() {
+            document.getElementById('startBtn').innerText = "Magic is Live! ❤️";
+            burstEmojis(20);
+            setInterval(createEmoji, 1000);
+        }
+
+        // 4. NOTE BUTTON (Music + Emojis + Stop Others)
+        function toggleNote() {
+            const modal = document.getElementById('guestbookModal');
+            const noteMusic = document.getElementById('noteMusic');
+
+            if (modal.style.display === "flex") {
+                modal.style.display = "none";
+                noteMusic.pause();
+            } else {
+                stopAllOthers(noteMusic);
+                modal.style.display = "flex";
+                noteMusic.currentTime = 0;
+                noteMusic.play();
+                burstEmojis(30);
+            }
+        }
+
+        // 5. EMOJI ENGINE
+        function createEmoji() {
+            const emojis = ['👶', '🍼', '💖', '✨', '🌸', '🧸', '🌈'];
+            const emojiEl = document.createElement('div');
+            emojiEl.classList.add('emoji');
+            emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emojiEl.style.left = Math.random() * 100 + 'vw';
+            emojiEl.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.getElementById('emoji-layer').appendChild(emojiEl);
+            setTimeout(() => emojiEl.remove(), 5000);
+        }
+
+        function burstEmojis(count) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(createEmoji, i * 150);
+            }
+        }
+
+        // 6. COUNTDOWN (April 23, 2026)
+        const milestoneDate = new Date("April 23, 2026 00:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = milestoneDate - now;
+            if (distance < 0) return;
+            document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // 7. HEART POP ON CLICK
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'BUTTON') {
+                const heart = document.createElement('div');
+                heart.innerHTML = '🌸';
+                heart.style.position = 'absolute';
+                heart.style.left = e.pageX + 'px';
+                heart.style.top = e.pageY + 'px';
+                heart.style.pointerEvents = 'none';
+                heart.animate([{
+                    transform: 'scale(1)',
+                    opacity: 1
+                }, {
+                    transform: 'scale(2.5)',
+                    opacity: 0
+                }], {
+                    duration: 800
+                });
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 800);
+            }
+        });
+    </script>
+</body>
+
+</html>
